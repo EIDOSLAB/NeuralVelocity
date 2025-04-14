@@ -145,7 +145,6 @@ def train(args, model, model_wrapper, train_loader, valid_loader, test_loader, a
 
 
 def train_cycle(epochs, args, model, train_loader, valid_loader, test_loader, aux_loader, hooks):
-    neve_metrics = []
 
     optim = gdtuo.SGD(alpha=args.lr, mu=args.momentum,
                       optimizer=gdtuo.SGD(alpha=(args.lr ** 2) * 1e-3, mu=(1 / (1 - args.momentum)) * 1e-6))
