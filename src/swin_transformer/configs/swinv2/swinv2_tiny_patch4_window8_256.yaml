@@ -1,0 +1,19 @@
+DATA:
+  IMG_SIZE: 256
+  DATASET: imagenet100
+MODEL:
+  TYPE: swinv2
+  NAME: swinv2_tiny_patch4_window8_256
+  DROP_PATH_RATE: 0.2
+  SWINV2:
+    EMBED_DIM: 96
+    DEPTHS: [ 2, 2, 6, 2 ]
+    NUM_HEADS: [ 3, 6, 12, 24 ]
+    WINDOW_SIZE: 8
+TRAIN:
+  EPOCHS: 150
+  WARMUP_EPOCHS: 0
+  WEIGHT_DECAY: 0.1
+  BASE_LR: 1.25e-4 # 4096 batch-size
+  WARMUP_LR: 1.25e-7
+  MIN_LR: 1.25e-6
