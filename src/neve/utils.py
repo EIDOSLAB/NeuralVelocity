@@ -10,10 +10,12 @@ def mse(a, b):
     return ((a - b) ** 2).mean()
 
 
-def calculate_metrics(new_metrics: List) -> Dict:
+def calculate_metrics(old_metrics: List, new_metrics: List) -> Dict:
     result = {
         "model_metric": float("Inf"),
         "model_metric_avg": float("Inf"),
+        "model_metric_mse": None,
+        "layers_metric_mse": None
     }
 
     # Update velocities if vector 'new_velocities' is not null
@@ -21,6 +23,12 @@ def calculate_metrics(new_metrics: List) -> Dict:
         result["model_metric"] = sum([sum(abs(vels)) for vels in new_metrics])
         result["model_metric_avg"] = result["model_metric"] / sum([len(vals) for vals in new_metrics])
 
+    if not (old_metrics is None or new_metrics is None
+            or len(old_metrics) != len(new_metrics)
+            or len(old_metrics) == 0):
+        mses = [mse(val1, val2) for val1, val2 in zip(old_metrics, new_metrics)]
+        result["model_metric_mse"] = sum(mses) / len(mses)
+        result["layers_metric_mse"] = mses
     return result
 
 
@@ -39,7 +47,7 @@ def attach_hooks(args, model) -> Dict[str, Hook]:
     return hooks
 
 
-def evaluate_velocity(hooks, logs):
+def evaluate_velocity(hooks, logs, old_metrics):
     neve_new_metrics = []
     for k in hooks:
         # Get layers velocity from the hooks
@@ -51,7 +59,7 @@ def evaluate_velocity(hooks, logs):
 
     # Evaluate the velocity mse
     metrics_log_data = {
-        "velocity": calculate_metrics(neve_new_metrics)
+        "velocity": calculate_metrics(old_metrics, neve_new_metrics)
     }
     print("VELOCITY DATA:\n", metrics_log_data)
 

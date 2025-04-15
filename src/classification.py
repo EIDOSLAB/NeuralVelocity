@@ -78,7 +78,7 @@ def run(args, model, dataloader, optimizers, scaler, epoch, run_type):
 
 
 def train(args, model, train_loader, valid_loader, test_loader, aux_loader,
-          optimizers, hooks, scaler, epoch):
+          optimizers, hooks, scaler, old_metrics, epoch):
     neve_new_metrics = []
     logs = {"velocity": {}, "rho": {}, "neve": {}}
     metrics_log_data = {"velocity": {}}
@@ -103,7 +103,7 @@ def train(args, model, train_loader, valid_loader, test_loader, aux_loader,
 
         _ = run(args, model, aux_loader, None, scaler, epoch, "Auxiliary")
 
-        metrics_log_data, neve_new_metrics = evaluate_velocity(hooks, logs)
+        metrics_log_data, neve_new_metrics = evaluate_velocity(hooks, logs, old_metrics)
 
         # Update logs for wandb logging
         for key in logs["velocity"].keys():
@@ -126,19 +126,21 @@ def train(args, model, train_loader, valid_loader, test_loader, aux_loader,
 def train_cycle(epochs, args, model, optimizers, schedulers, scaler, train_loader, valid_loader, test_loader,
                 aux_loader,
                 hooks, consider_baseline_scheduler=True):
+    neve_metrics = []
+    early_stop_reached = False
+
     if aux_loader:
         # First run on validation to get the PSP for epoch -1
         activate_hooks(hooks, True)
         _ = run(args, model, aux_loader, None, scaler, -1, "Auxiliary")
 
-    early_stop_reached = False
     # Epochs
     for e in range(epochs):
         print(f"Epoch {e}")
 
         # Perform train, validation and test for the current epoch
         logs, metrics_log_data, neve_metrics = train(args, model, train_loader, valid_loader, test_loader, aux_loader,
-                                                     optimizers, hooks, scaler, e)
+                                                     optimizers, hooks, scaler, neve_metrics, e)
 
         # Log optimizer(s) learning rate(s)
         logs["lr"] = {i: {} for i, _ in enumerate(optimizers)}

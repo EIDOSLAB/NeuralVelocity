@@ -102,7 +102,7 @@ def train_epoch(args, model_wrapper, dataloader, epoch):
 
 
 def train(args, model, model_wrapper, train_loader, valid_loader, test_loader, aux_loader,
-          hooks, epoch):
+          hooks, old_metrics, epoch):
     neve_new_metrics = []
     logs = {"velocity": {}, "neve": {}}
     metrics_log_data = {"velocity": {}}
@@ -126,7 +126,7 @@ def train(args, model, model_wrapper, train_loader, valid_loader, test_loader, a
             hooks[k].reset()
         _ = evaluate(args, model, aux_loader, epoch, "Auxiliary")
 
-        metrics_log_data, neve_new_metrics = evaluate_velocity(hooks, logs)
+        metrics_log_data, neve_new_metrics = evaluate_velocity(hooks, logs, old_metrics)
 
         # Update logs for wandb logging
         for key in logs["velocity"].keys():
@@ -145,6 +145,7 @@ def train(args, model, model_wrapper, train_loader, valid_loader, test_loader, a
 
 
 def train_cycle(epochs, args, model, train_loader, valid_loader, test_loader, aux_loader, hooks):
+    neve_metrics = []
 
     optim = gdtuo.SGD(alpha=args.lr, mu=args.momentum,
                       optimizer=gdtuo.SGD(alpha=(args.lr ** 2) * 1e-3, mu=(1 / (1 - args.momentum)) * 1e-6))
@@ -165,12 +166,17 @@ def train_cycle(epochs, args, model, train_loader, valid_loader, test_loader, au
         # Perform train, validation and test for the current epoch
         logs, metrics_log_data, neve_metrics = train(args, model, model_wrapper, train_loader, valid_loader,
                                                      test_loader,
-                                                     aux_loader, hooks, e)
+                                                     aux_loader, hooks, neve_metrics, e)
 
         # Log optimizer(s) learning rate(s)
         logs["lr"] = previous_lr
         previous_lr = model_wrapper.get_lr()
 
+        # TODO: ADD HERE EARLY-STOP
+        if aux_loader and not early_stop_reached:
+            if metrics_log_data.get("model_avg_value", np.inf) < 1e-3:
+                early_stop_reached = True
+                wandb.log({"neve_stop": e}, commit=False)
         # Log on wandb project
         wandb.log(logs)
 
