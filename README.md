@@ -1,6 +1,8 @@
 # NeuralVelocity
 NeVe - Neural Velocity for hyperparameter tuning (IJCNN 2025)
+<br>
 Link IJCNN: TODO []
+<br>
 Link ArXiv: TODO []
 
 <b>Abstract</b>:
