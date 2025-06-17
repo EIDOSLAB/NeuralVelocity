@@ -74,7 +74,7 @@ pyenv activate neve
 pip install -r requirements.txt
 ```
 
-#### 🏁 Run training
+#### 🚀 Run training
 ```bash
 cd src
 python classification.py
