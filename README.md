@@ -5,13 +5,13 @@
 [![Python 3.8.8](https://img.shields.io/badge/python-3.8.8-blue.svg)](https://www.python.org/downloads/release/python-388/)
 [![PyTorch](https://img.shields.io/badge/framework-PyTorch-EE4C2C?logo=pytorch)](https://pytorch.org/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![arXiv](https://img.shields.io/badge/arXiv-xxxx.xxxxx-b31b1b.svg)](https://arxiv.org/abs/xxxx.xxxxx)
+[![arXiv](https://img.shields.io/badge/arXiv-2507.05309-b31b1b.svg)](https://arxiv.org/abs/2507.05309)
 
 This repository contains the official implementation of the paper:
 > **Neural Velocity for hyperparameter tuning**  
 > *Gianluca Dalmasso, et al.*  
 > IJCNN 2025  
-> 📄 [arXiv / DOI link here]
+> 📄 [[arXiv link](https://arxiv.org/abs/2507.05309)]
 
 ---
 
@@ -136,9 +136,9 @@ If you use this repository or find our work helpful, please cite:
 ```bibtex
 @misc{dalmasso2025neve,
   title        = {Neural Velocity for Hyperparameter Tuning},
-  author       = {Gianluca Dalmasso and Others},
+  author       = {Gianluca Dalmasso and Andrea Bragagnolo and Enzo Tartaglione and Attilio Fiandrotti and Marco Grangetto},
   year         = {2025},
-  howpublished = {\url{https://arxiv.org/abs/xxxx.xxxxx}},
+  howpublished = {https://arxiv.org/abs/2507.05309},
   note         = {Accepted at IJCNN 2025. Official citation will be updated upon publication.}
 }
 ```
