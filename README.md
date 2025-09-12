@@ -147,5 +147,5 @@ If you use this repository or find our work helpful, please cite:
 
 ## 📫 Contact
 For questions or collaborations, feel free to reach out:
-- 📧 gianluca.dalmasso@unito.it
+- 📧 gianluca.dalmasso@unito.it / gianluca.dalmasso@gmail.com
 - 🐙 GitHub Issues for bugs or feature requests
