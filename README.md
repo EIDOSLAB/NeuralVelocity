@@ -12,6 +12,7 @@ This repository contains the official implementation of the paper:
 > *Gianluca Dalmasso, et al.*  
 > IJCNN 2025  
 > 📄 [[arXiv link](https://arxiv.org/abs/2507.05309)]
+> 📄 [[IEEE](https://ieeexplore.ieee.org/document/11229080)]
 
 ---
 
@@ -134,13 +135,16 @@ We thank the members of both institutions for the insightful discussions and sup
 ## 📜 Citation
 If you use this repository or find our work helpful, please cite:
 ```bibtex
-@misc{dalmasso2025neve,
-  title        = {Neural Velocity for Hyperparameter Tuning},
-  author       = {Gianluca Dalmasso and Andrea Bragagnolo and Enzo Tartaglione and Attilio Fiandrotti and Marco Grangetto},
-  year         = {2025},
-  howpublished = {https://arxiv.org/abs/2507.05309},
-  note         = {Accepted at IJCNN 2025. Official citation will be updated upon publication.}
-}
+@INPROCEEDINGS{11229080,
+  author={Dalmasso, Gianluca and Bragagnolo, Andrea and Tartaglione, Enzo and Fiandrotti, Attilio and Grangetto, Marco},
+  booktitle={2025 International Joint Conference on Neural Networks (IJCNN)}, 
+  title={Neural Velocity for hyperparameter tuning}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={1-8},
+  keywords={Training;Computational modeling;Transfer functions;Velocity measurement;Reliability;Noise measurement;Tuning;Biological neural networks;Monitoring;Overfitting;Deep learning;Artificial neural networks;Hyper-heuristics;Small data;Neural velocity},
+  doi={10.1109/IJCNN64981.2025.11229080}}
 ```
 
 ---
